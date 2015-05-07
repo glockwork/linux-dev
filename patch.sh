@@ -363,15 +363,15 @@ meld KERNEL/include/uapi/drm/etnaviv_drm.h ~/linux-src/include/uapi/drm/etnaviv_
 }
 
 #overlay
-dt
-dts
-wand
-errata
+#dt
+#dts
+#wand
+#errata
 fixes
 pru
 bbb_overlays
 #beaglebone
-etnaviv
+#etnaviv
 
 packaging_setup () {
 	cp -v "${DIR}/3rdparty/packaging/builddeb" "${DIR}/KERNEL/scripts/package"
