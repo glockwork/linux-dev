@@ -21,7 +21,7 @@ prev_KERNEL_SHA="5ebe6afaf0057ac3eaeb98defd5456894b446d22"
 KERNEL_SHA="0e1dc4274828f64fcb56fc7b950acdc5ff7a395f"
 
 #git branch
-#BRANCH="v4.1.x"
+BRANCH="capemgr"
 
 DISTRO=cross
 DEBARCH=armhf
