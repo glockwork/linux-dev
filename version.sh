@@ -13,12 +13,12 @@ toolchain="gcc_linaro_gnueabihf_4_9"
 
 #Kernel/Build
 KERNEL_REL=4.1
-KERNEL_TAG=${KERNEL_REL}-rc2
-BUILD=capemgr-r5
+KERNEL_TAG=${KERNEL_REL}-rc3
+BUILD=capemgr-r6
 
 #v3.X-rcX + upto SHA
-prev_KERNEL_SHA="68c2f356c9ec65e1eb50c31690b095673dbd8010"
-KERNEL_SHA="3e0283a53f7d2f2dae7bc4aa7f3104cb5988018f"
+#prev_KERNEL_SHA="68c2f356c9ec65e1eb50c31690b095673dbd8010"
+#KERNEL_SHA="3e0283a53f7d2f2dae7bc4aa7f3104cb5988018f"
 
 #git branch
 BRANCH="capemgr"
