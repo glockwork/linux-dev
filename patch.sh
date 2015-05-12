@@ -219,10 +219,14 @@ bbb_overlays () {
 	${git} "${DIR}/patches/bbb_overlays/0019-Documentation-ABI-sys-firmware-devicetree-overlays.patch"
 	${git} "${DIR}/patches/bbb_overlays/0020-of-Move-OF-flags-to-be-visible-even-when-CONFIG_OF.patch"
 	${git} "${DIR}/patches/bbb_overlays/0021-i2c-EEPROM-In-kernel-memory-accessor-interface.patch"
-	${git} "${DIR}/patches/bbb_overlays/0022-capemgr-Beaglebone-capemanager.patch"
+	${git} "${DIR}/patches/bbb_overlays/0022-misc-Beaglebone-capemanager.patch"
+	${git} "${DIR}/patches/bbb_overlays/0023-doc-dt-beaglebone-cape-manager-bindings.patch"
+	${git} "${DIR}/patches/bbb_overlays/0024-documentation-ABI-bone_capemgr-sysfs-API.patch"
+	${git} "${DIR}/patches/bbb_overlays/0025-arm-dts-Beaglebone-i2c-definitions.patch"
+	${git} "${DIR}/patches/bbb_overlays/0026-arm-dts-Enable-beaglebone-cape-manager.patch"
 
 	if [ "x${regenerate}" = "xenable" ] ; then
-		number=22
+		number=26
 		cleanup
 	fi
 }
