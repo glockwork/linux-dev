@@ -103,9 +103,12 @@ dts () {
 	${git} "${DIR}/patches/dts/0007-omap3-beagle-xm-ehci-works-again.patch"
 	${git} "${DIR}/patches/dts/0008-ARM-dts-omap3-beagle-ddc-i2c-bus-is-not-responding-d.patch"
 	${git} "${DIR}/patches/dts/0009-first-pass-imx6q-ccimx6sbc.patch"
+	${git} "${DIR}/patches/dts/0010-imx6-wl1835-base-boards.patch"
+	${git} "${DIR}/patches/dts/0011-imx6q-sabresd-add-support-for-wilink8-wlan-and-bluet.patch"
+	${git} "${DIR}/patches/dts/0012-imx6sl-evk-add-support-for-wilink8-wlan-and-bluetoot.patch"
 
 	if [ "x${regenerate}" = "xenable" ] ; then
-		number=9
+		number=12
 		cleanup
 	fi
 }
@@ -239,8 +242,8 @@ beaglebone () {
 		start_cleanup
 	fi
 
-	#${git} "${DIR}/patches/beaglebone/capes/0001-cape-Argus-UPS-cape-support.patch"
-	#${git} "${DIR}/patches/beaglebone/capes/0002-Added-support-for-Replicape.patch"
+	${git} "${DIR}/patches/beaglebone/capes/0001-cape-Argus-UPS-cape-support.patch"
+	${git} "${DIR}/patches/beaglebone/capes/0002-Added-support-for-Replicape.patch"
 
 	if [ "x${regenerate}" = "xenable" ] ; then
 		number=2
@@ -254,7 +257,7 @@ beaglebone () {
 		patch -p1 < "${DIR}/patches/beaglebone/dtbs/0001-sync-am335x-peripheral-pinmux.patch"
 		exit 2
 	fi
-	#${git} "${DIR}/patches/beaglebone/dtbs/0001-sync-am335x-peripheral-pinmux.patch"
+	${git} "${DIR}/patches/beaglebone/dtbs/0001-sync-am335x-peripheral-pinmux.patch"
 
 	####
 	#dtb makefile
@@ -262,28 +265,18 @@ beaglebone () {
 	if [ "x${regenerate}" = "xenable" ] ; then
 
 		device="am335x-bone-can0.dtb" ; dtb_makefile_append
-		device="am335x-bone-can1.dtb" ; dtb_makefile_append
 		device="am335x-bone-cape-bone-argus.dtb" ; dtb_makefile_append
-		device="am335x-bone-ttyS1.dtb" ; dtb_makefile_append
-		device="am335x-bone-ttyS2.dtb" ; dtb_makefile_append
-		device="am335x-bone-ttyS4.dtb" ; dtb_makefile_append
-		device="am335x-bone-ttyS5.dtb" ; dtb_makefile_append
 
 		device="am335x-boneblack-bbb-exp-c.dtb" ; dtb_makefile_append
 		device="am335x-boneblack-can0.dtb" ; dtb_makefile_append
-		device="am335x-boneblack-can1.dtb" ; dtb_makefile_append
 		device="am335x-boneblack-cape-bone-argus.dtb" ; dtb_makefile_append
-		device="am335x-boneblack-ttyS1.dtb" ; dtb_makefile_append
-		device="am335x-boneblack-ttyS2.dtb" ; dtb_makefile_append
-		device="am335x-boneblack-ttyS4.dtb" ; dtb_makefile_append
-		device="am335x-boneblack-ttyS5.dtb" ; dtb_makefile_append
 		device="am335x-boneblack-replicape.dtb" ; dtb_makefile_append
 
 		git commit -a -m 'auto generated: capes: add dtbs to makefile' -s
 		git format-patch -1 -o ../patches/beaglebone/generated/
 		exit 2
-	#else
-	#	${git} "${DIR}/patches/beaglebone/generated/0001-auto-generated-capes-add-dtbs-to-makefile.patch"
+	else
+		${git} "${DIR}/patches/beaglebone/generated/0001-auto-generated-capes-add-dtbs-to-makefile.patch"
 	fi
 
 	echo "dir: beaglebone/phy"
@@ -292,9 +285,9 @@ beaglebone () {
 		start_cleanup
 	fi
 
-#	${git} "${DIR}/patches/beaglebone/phy/0001-cpsw-Add-support-for-byte-queue-limits.patch"
-#	${git} "${DIR}/patches/beaglebone/phy/0002-cpsw-napi-polling-of-64-is-good-for-gigE-less-good-f.patch"
-#	${git} "${DIR}/patches/beaglebone/phy/0003-cpsw-search-for-phy.patch"
+	${git} "${DIR}/patches/beaglebone/phy/0001-cpsw-Add-support-for-byte-queue-limits.patch"
+	${git} "${DIR}/patches/beaglebone/phy/0002-cpsw-napi-polling-of-64-is-good-for-gigE-less-good-f.patch"
+	#${git} "${DIR}/patches/beaglebone/phy/0003-cpsw-search-for-phy.patch"
 
 	if [ "x${regenerate}" = "xenable" ] ; then
 		number=3
@@ -302,53 +295,27 @@ beaglebone () {
 	fi
 }
 
-etnaviv () {
-	echo "dir: etnaviv"
-
-	#regenerate="enable"
-	if [ "x${regenerate}" = "xenable" ] ; then
-		start_cleanup
-		patch -p1 < "${DIR}/patches/etnaviv/0001-staging-etnaviv-add-drm-driver.patch"
-		exit 2
-
-	cd ~/linux-src
-	git checkout v4.0-rc6 -b tmp
-	git pull --no-edit git://git.pengutronix.de/git/lst/linux.git etnaviv-for-upstream
-
-meld KERNEL/Documentation/devicetree/bindings/drm/etnaviv/etnaviv-drm.txt ~/linux-src/Documentation/devicetree/bindings/drm/etnaviv/etnaviv-drm.txt
-
-meld KERNEL/Documentation/devicetree/bindings/vendor-prefixes.txt ~/linux-src/Documentation/devicetree/bindings/vendor-prefixes.txt
-
-meld KERNEL/arch/arm/boot/dts/imx6dl.dtsi ~/linux-src/arch/arm/boot/dts/imx6dl.dtsi
-meld KERNEL/arch/arm/boot/dts/imx6q.dtsi ~/linux-src/arch/arm/boot/dts/imx6q.dtsi
-meld KERNEL/arch/arm/boot/dts/imx6qdl.dtsi ~/linux-src/arch/arm/boot/dts/imx6qdl.dtsi
-
-meld KERNEL/drivers/staging/Kconfig ~/linux-src/drivers/staging/Kconfig
-meld KERNEL/drivers/staging/Makefile ~/linux-src/drivers/staging/Makefile
-meld KERNEL/drivers/staging/etnaviv/ ~/linux-src/drivers/staging/etnaviv/
-
-meld KERNEL/include/uapi/drm/etnaviv_drm.h ~/linux-src/include/uapi/drm/etnaviv_drm.h
-
-	fi
-
+sgx () {
+	echo "dir: sgx"
 	#regenerate="enable"
 	if [ "x${regenerate}" = "xenable" ] ; then
 		start_cleanup
 	fi
 
-	${git} "${DIR}/patches/etnaviv/0001-staging-etnaviv-add-drm-driver.patch"
-	${git} "${DIR}/patches/etnaviv/0002-etnaviv-wheezy-build-fix.patch"
-	${git} "${DIR}/patches/etnaviv/0003-Revert-iommu-Remove-domain_init-and-domain_free-iomm.patch"
+	${git} "${DIR}/patches/sgx/0001-HACK-drm-fb_helper-enable-panning-support.patch"
+	${git} "${DIR}/patches/sgx/0002-HACK-drm-tilcdc-add-vsync-callback-for-use-in-omaplf.patch"
+	${git} "${DIR}/patches/sgx/0003-drm-tilcdc-fix-the-ping-pong-dma-tearing-issue-seen-.patch"
+	${git} "${DIR}/patches/sgx/0004-ARM-OMAP2-Use-pdata-quirks-for-sgx-deassert_hardrese.patch"
+	${git} "${DIR}/patches/sgx/0005-ARM-dts-am33xx-add-DT-node-for-gpu.patch"
+	${git} "${DIR}/patches/sgx/0006-arm-Export-cache-flush-management-symbols-when-MULTI.patch"
 
 	if [ "x${regenerate}" = "xenable" ] ; then
-		number=3
+		number=6
 		cleanup
 	fi
-
-#	echo "dir: etnaviv/fixes"
 }
 
-#dt
+dt
 #dts
 #wand
 #errata
@@ -356,7 +323,7 @@ fixes
 pru
 bbb_overlays
 beaglebone
-#etnaviv
+sgx
 
 packaging_setup () {
 	cp -v "${DIR}/3rdparty/packaging/builddeb" "${DIR}/KERNEL/scripts/package"

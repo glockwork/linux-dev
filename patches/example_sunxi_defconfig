@@ -790,6 +790,11 @@ CONFIG_EEPROM_SUNXI_SID=y
 #
 # Intel MIC Card Driver
 #
+
+#
+# Argus cape driver for beaglebone black
+#
+# CONFIG_CAPE_BONE_ARGUS is not set
 # CONFIG_ECHO is not set
 # CONFIG_CXL_BASE is not set
 
@@ -896,7 +901,6 @@ CONFIG_ETHERNET=y
 CONFIG_NET_VENDOR_ALLWINNER=y
 CONFIG_SUN4I_EMAC=y
 # CONFIG_ALTERA_TSE is not set
-# CONFIG_NET_XGENE is not set
 # CONFIG_NET_VENDOR_ARC is not set
 # CONFIG_NET_CADENCE is not set
 # CONFIG_NET_VENDOR_BROADCOM is not set
@@ -931,7 +935,6 @@ CONFIG_PHYLIB=y
 #
 # CONFIG_AT803X_PHY is not set
 # CONFIG_AMD_PHY is not set
-# CONFIG_AMD_XGBE_PHY is not set
 # CONFIG_MARVELL_PHY is not set
 # CONFIG_DAVICOM_PHY is not set
 # CONFIG_QSEMI_PHY is not set
